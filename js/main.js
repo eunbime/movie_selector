@@ -15,7 +15,7 @@ fetch(
 )
   .then((response) => response.json())
   .then((data) => {
-    let movies = data.results;
+    const movies = data.results;
 
     // 헤더 영화 랜덤 보여주기
     const title = document.querySelector(".movie_info .movie_title");
@@ -36,10 +36,10 @@ fetch(
     rating.innerText = rndMovie.vote_average;
     summary.innerText = rndMovie.overview;
 
-    // 영화 카드 불러오기 & 검색하기 (맞는 값만 불러오기)
     const search = document.querySelector("#search");
     const searchBtn = document.querySelector("#searchBtn");
 
+    // 영화 카드 불러오기 & 검색하기
     const showMovies = (list) => {
       let cardList = document.querySelector(".movie_cards");
 
@@ -56,19 +56,27 @@ fetch(
         card.appendChild(cardTitle);
         card.appendChild(cardRating);
         cardList.appendChild(card);
+
+        function idAlert(e) {
+          e.preventDefault();
+          alert(`id=${movie.id}`);
+        }
+
+        card.addEventListener("click", idAlert);
       });
     };
 
     function onSearchButtonClick(e) {
       let cardList = document.querySelector(".movie_cards");
-      cardList.innerHTML = "";
-      filteredMovies = movies.filter(function (movie) {
+      cardList.innerHTML = ""; // 초기화
+      filteredMovies = movies.filter((movie) => {
         if (e) e.preventDefault();
 
+        // input 값이 들어올 때
         if (search.value) {
-          return movie.title.includes(search.value);
+          return movie.title.includes(search.value); // 키워드를 포함한 movie.title 반환
         } else {
-          return movie;
+          return movie; // input 값이 들어오지 않을 때 (초기 상태) 전체 movie 데이터 반환
         }
       });
       search.value = "";
