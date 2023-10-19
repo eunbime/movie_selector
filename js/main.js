@@ -36,9 +36,9 @@ fetch(
     rating.innerText = rndMovie.vote_average;
     summary.innerText = rndMovie.overview;
 
-    // 영화 카드 불러오기
+    // 영화 카드 불러오기 & 검색하기 (맞는 값만 불러오기)
     const search = document.querySelector("#search");
-    const searchIcon = document.querySelector("#searchIcon");
+    const searchBtn = document.querySelector("#searchBtn");
 
     const showMovies = (list) => {
       let cardList = document.querySelector(".movie_cards");
@@ -75,7 +75,7 @@ fetch(
       showMovies(filteredMovies);
     }
 
-    searchIcon.addEventListener("click", onSearchButtonClick);
+    searchBtn.addEventListener("click", onSearchButtonClick);
     showMovies(movies);
   })
   .catch((err) => console.error(err));
