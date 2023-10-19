@@ -40,49 +40,71 @@ fetch(
     const search = document.querySelector("#search");
     const searchIcon = document.querySelector("#searchIcon");
 
-    function paintResult(e) {
-      e.preventDefault();
-      const resultList = movies.filter((movie) => movie.title === search.value);
-      search.value = "";
-      console.log(resultList);
-    }
+    // function paintResult(e) {
+    //   e.preventDefault();
+
+    //   if (search.value === "") {
+    //     alert("영화 제목을 입력해주세요.");
+    //   } else {
+    //     // 검색어를 포함하는 영화일 때
+    //     const resultList = movies.filter((movie) =>
+    //       movie.title.includes(search.value)
+    //     );
+    //     resultList.map((result) => {
+
+    //     })
+    //     search.value = "";
+    //     // 검색 리스트 출력
+    //     console.log(resultList);
+    //   }
+    // }
 
     searchIcon.addEventListener("click", paintResult);
 
     // 영화 카드 불러오기
     let listCards = document.querySelector(".movie_cards");
-    movies.map((movie) => {
-      const listCard = document.createElement("div");
-      const listImg = document.createElement("img");
-      const listTitle = document.createElement("h3");
-      const listRating = document.createElement("span");
-      const posterPath = `https://image.tmdb.org/t/p/w500/${movie.poster_path}`;
-      listImg.src = posterPath;
-      listCard.appendChild(listImg);
-      listTitle.innerText = movie.title;
-      listRating.innerText = movie.vote_average;
-      listCard.appendChild(listTitle);
-      listCard.appendChild(listRating);
-      listCards.appendChild(listCard);
 
-      function cardRotate(e) {
-        e.preventDefault();
-        // alert(`id=${movie.id}`);
-        const target = event.currentTarget;
-        target.style.transform = "rotateY(180deg)";
-        target.addEventListener("click", backRotate);
-        listCard.classList.add("back");
-      }
+    // 만약 search.value가 존재하는 경우 => 필터링을 적용
+    // 만약 search.value가 존재하지 않는 경우 => 원래대로 map을 그대로 적용
 
-      function backRotate(event) {
-        const target = event.currentTarget;
-        target.style.transform = "rotateY(0deg)";
-        target.addEventListener("click", cardRotate);
-        target.removeEventListener("click", backRotate);
-        listCard.classList.remove("back");
-      }
+    movies
+      .filter(function (item) {
+        if (search.value) {
+          // 존재하는 경우 -> 필터링 적용
+          console.log("키워드 존재 : " + search.value);
+          console.log("키워드 존재 : " + item.title);
+          if (item.title.includes(search.value)) {
+            return true;
+          } else {
+            return false;
+          }
+        } else {
+          // 존재하지 x -> 그대로 출력
+          console.log("키워드 존재 X : " + search.value);
+          console.log("키워드 존재 X : " + item.title);
+          return true;
+        }
+      })
+      .map((movie) => {
+        const listCard = document.createElement("div");
+        const listImg = document.createElement("img");
+        const listTitle = document.createElement("h3");
+        const listRating = document.createElement("span");
+        const posterPath = `https://image.tmdb.org/t/p/w500/${movie.poster_path}`;
+        listImg.src = posterPath;
+        listCard.appendChild(listImg);
+        listTitle.innerText = movie.title;
+        listRating.innerText = movie.vote_average;
+        listCard.appendChild(listTitle);
+        listCard.appendChild(listRating);
+        listCards.appendChild(listCard);
 
-      listCard.addEventListener("click", cardRotate);
-    });
+        function idAlert(e) {
+          e.preventDefault();
+          alert(`id=${movie.id}`);
+        }
+
+        listCard.addEventListener("click", idAlert);
+      });
   })
   .catch((err) => console.error(err));
