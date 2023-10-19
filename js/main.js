@@ -39,7 +39,7 @@ fetch(
     const search = document.querySelector("#search");
     const searchBtn = document.querySelector("#searchBtn");
 
-    // 영화 카드 불러오기 & 검색하기
+    // 영화 카드 불러오기
     const showMovies = (list) => {
       let cardList = document.querySelector(".movie_cards");
 
@@ -66,6 +66,7 @@ fetch(
       });
     };
 
+    // 검색 시 value 값에 따라 리스트 출력
     function onSearchButtonClick(e) {
       let cardList = document.querySelector(".movie_cards");
       cardList.innerHTML = ""; // 초기화
