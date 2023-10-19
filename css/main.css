@@ -18,6 +18,24 @@ body {
   backdrop-filter: blur(3px);
 }
 
+.header .main_menu > div {
+  background-color: #fff;
+  border-radius: 10px;
+  width: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.header .main_menu > div > span {
+  padding-left: 5px;
+  margin-right: -5px;
+}
+
+.header .main_menu > div > span {
+  cursor: pointer;
+}
+
 .header .movie_header_container {
   padding: 100px 30px;
   max-width: 1200px;
@@ -30,8 +48,8 @@ body {
 .header .movie_header_container .movie_header_image {
   background-color: #777;
   min-width: 250px;
-  height: 400px;
-  margin-right: 70px;
+  height: 500px;
+  margin-right: 200px;
 }
 
 .header .movie_header_container .movie_header_image > img {
@@ -44,13 +62,14 @@ body {
 }
 
 .header .movie_header_container ul {
-  padding: 10px;
+  padding: 0 10px;
 }
 
 .header .movie_header_container li {
   margin-bottom: 10px;
   font-size: 20px;
   color: #fff;
+  text-shadow: 0 0 3px #333;
 }
 .header .movie_header_container .movie_title {
   font-size: 32px;
@@ -66,9 +85,22 @@ body {
   max-width: 1400px;
   margin: 0 auto;
   padding: 30px 0px;
+  perspective: 1100px;
 }
 
-.movie_list_container .movie_cards .movie_card {
+.movie_list_container .movie_cards > div {
+  transform-style: preserve-3d;
+}
+
+.movie_list_container .movie_cards > div .front {
+  background: tomato;
+}
+
+.movie_list_container .movie_cards > div .back {
+  background-color: black;
+}
+
+.movie_list_container .movie_cards div {
   background-color: #fff;
   width: 200px;
   height: 330px;
@@ -76,30 +108,24 @@ body {
   padding: 20px;
 }
 
-.movie_list_container .movie_cards .movie_card:hover {
-  transform: scale(1.2);
+/* .movie_list_container .movie_cards:hover div {
+  transform: rotateY(180deg);
+} */
+
+.movie_list_container .movie_cards div:hover {
   transition: 0.3s;
   z-index: 1;
   box-shadow: 0 0 4px 3px #555;
+  transform: scale(1.2);
 }
 
-.movie_list_container .movie_cards .movie_card .image {
-  background-color: gray;
-  height: 260px;
-}
-
-.movie_list_container .movie_cards .movie_card ul {
-  font-size: 19px;
-  padding: 0px 5px;
-}
-
-.movie_list_container .movie_cards .movie_card ul li {
-  margin-top: 15px;
+.movie_list_container .movie_cards div img {
+  height: 300px;
 }
 
 footer {
-  background-color: #777;
   display: flex;
   justify-content: center;
   padding: 20px 0px;
+  border-top: 1px solid #333;
 }
