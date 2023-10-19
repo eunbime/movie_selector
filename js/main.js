@@ -36,51 +36,32 @@ fetch(
     rating.innerText = rndMovie.vote_average;
     summary.innerText = rndMovie.overview;
 
-    // 영화 검색하기 => filter 사용
+    // 영화 카드 불러오기
     const search = document.querySelector("#search");
     const searchIcon = document.querySelector("#searchIcon");
 
-    // 추가
     const showMovies = (list) => {
-      let listCards = document.querySelector(".movie_cards");
+      let cardList = document.querySelector(".movie_cards");
 
       list.forEach((movie) => {
-        const listCard = document.createElement("div");
-        const listImg = document.createElement("img");
-        const listTitle = document.createElement("h3");
-        const listRating = document.createElement("span");
+        const card = document.createElement("div");
+        const cardImg = document.createElement("img");
+        const cardTitle = document.createElement("h3");
+        const cardRating = document.createElement("span");
         const posterPath = `https://image.tmdb.org/t/p/w500/${movie.poster_path}`;
-        listImg.src = posterPath;
-        listCard.appendChild(listImg);
-        listTitle.innerText = movie.title;
-        listRating.innerText = movie.vote_average;
-        listCard.appendChild(listTitle);
-        listCard.appendChild(listRating);
-        listCards.appendChild(listCard);
-
-        function cardRotate(e) {
-          e.preventDefault();
-          const target = event.currentTarget;
-          target.style.transform = "rotateY(180deg)";
-          target.addEventListener("click", backRotate);
-          listCard.classList.add("back");
-        }
-
-        function backRotate(event) {
-          const target = event.currentTarget;
-          target.style.transform = "rotateY(0deg)";
-          target.addEventListener("click", cardRotate);
-          target.removeEventListener("click", backRotate);
-          listCard.classList.remove("back");
-        }
-
-        listCard.addEventListener("click", cardRotate);
+        cardImg.src = posterPath;
+        card.appendChild(cardImg);
+        cardTitle.innerText = movie.title;
+        cardRating.innerText = movie.vote_average;
+        card.appendChild(cardTitle);
+        card.appendChild(cardRating);
+        cardList.appendChild(card);
       });
     };
 
     function onSearchButtonClick(e) {
-      let listCards = document.querySelector(".movie_cards");
-      listCards.innerHTML = "";
+      let cardList = document.querySelector(".movie_cards");
+      cardList.innerHTML = "";
       filteredMovies = movies.filter(function (movie) {
         if (e) e.preventDefault();
 
@@ -96,41 +77,5 @@ fetch(
 
     searchIcon.addEventListener("click", onSearchButtonClick);
     showMovies(movies);
-
-    // // 영화 카드 불러오기
-    // let listCards = document.querySelector(".movie_cards");
-    // movies.map((movie) => {
-    // const listCard = document.createElement("div");
-    // const listImg = document.createElement("img");
-    // const listTitle = document.createElement("h3");
-    // const listRating = document.createElement("span");
-    // const posterPath = `https://image.tmdb.org/t/p/w500/${movie.poster_path}`;
-    // listImg.src = posterPath;
-    // listCard.appendChild(listImg);
-    // listTitle.innerText = movie.title;
-    // listRating.innerText = movie.vote_average;
-    // listCard.appendChild(listTitle);
-    // listCard.appendChild(listRating);
-    // listCards.appendChild(listCard);
-
-    // function cardRotate(e) {
-    // e.preventDefault();
-    // // alert(`id=${movie.id}`);
-    // const target = event.currentTarget;
-    // target.style.transform = "rotateY(180deg)";
-    // target.addEventListener("click", backRotate);
-    // listCard.classList.add("back");
-    // }
-
-    // function backRotate(event) {
-    // const target = event.currentTarget;
-    // target.style.transform = "rotateY(0deg)";
-    // target.addEventListener("click", cardRotate);
-    // target.removeEventListener("click", backRotate);
-    // listCard.classList.remove("back");
-    // }
-
-    // listCard.addEventListener("click", cardRotate);
-    // });
   })
   .catch((err) => console.error(err));

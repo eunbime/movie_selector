@@ -36,56 +36,14 @@ fetch(
     rating.innerText = rndMovie.vote_average;
     summary.innerText = rndMovie.overview;
 
-    // 영화 검색하기 => filter 사용
     const search = document.querySelector("#search");
     const searchIcon = document.querySelector("#searchIcon");
 
-    // function paintResult(e) {
-    //   e.preventDefault();
-
-    //   if (search.value === "") {
-    //     alert("영화 제목을 입력해주세요.");
-    //   } else {
-    //     // 검색어를 포함하는 영화일 때
-    //     const resultList = movies.filter((movie) =>
-    //       movie.title.includes(search.value)
-    //     );
-    //     resultList.map((result) => {
-
-    //     })
-    //     search.value = "";
-    //     // 검색 리스트 출력
-    //     console.log(resultList);
-    //   }
-    // }
-
-    searchIcon.addEventListener("click", paintResult);
-
     // 영화 카드 불러오기
-    let listCards = document.querySelector(".movie_cards");
+    const showMovies = (list) => {
+      let listCards = document.querySelector(".movie_cards");
 
-    // 만약 search.value가 존재하는 경우 => 필터링을 적용
-    // 만약 search.value가 존재하지 않는 경우 => 원래대로 map을 그대로 적용
-
-    movies
-      .filter(function (item) {
-        if (search.value) {
-          // 존재하는 경우 -> 필터링 적용
-          console.log("키워드 존재 : " + search.value);
-          console.log("키워드 존재 : " + item.title);
-          if (item.title.includes(search.value)) {
-            return true;
-          } else {
-            return false;
-          }
-        } else {
-          // 존재하지 x -> 그대로 출력
-          console.log("키워드 존재 X : " + search.value);
-          console.log("키워드 존재 X : " + item.title);
-          return true;
-        }
-      })
-      .map((movie) => {
+      list.forEach((movie) => {
         const listCard = document.createElement("div");
         const listImg = document.createElement("img");
         const listTitle = document.createElement("h3");
@@ -106,5 +64,26 @@ fetch(
 
         listCard.addEventListener("click", idAlert);
       });
+    };
+
+    function onSearchButtonClick(e) {
+      let listCards = document.querySelector(".movie_cards");
+      listCards.innerHTML = ""; // 초기화
+      filteredMovies = movies.filter((movie) => {
+        if (e) e.preventDefault();
+
+        if (search.value) {
+          // input 값이 들어오면
+          return movie.title.includes(search.value); // 키워드를 포함한 movie.title 반환
+        } else {
+          return movie; // input 값이 들어오지 않을 때 (초기 상태) 전체 movie 데이터 반환
+        }
+      });
+      search.value = "";
+      showMovies(filteredMovies);
+    }
+
+    searchIcon.addEventListener("click", onSearchButtonClick);
+    showMovies(movies);
   })
   .catch((err) => console.error(err));
