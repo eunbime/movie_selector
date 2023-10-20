@@ -21,18 +21,20 @@ body {
 .header .main_menu > div {
   background-color: #fff;
   border-radius: 10px;
-  width: 200px;
   display: flex;
   align-items: center;
   justify-content: center;
+  padding: 7px 20px;
 }
 
-.header .main_menu > div > span {
-  padding-left: 5px;
+.header .main_menu > div #search {
+  height: 20px;
+  width: 250px;
+}
+
+.header .main_menu > div #searchBtn {
+  padding-left: 10px;
   margin-right: -5px;
-}
-
-.header .main_menu > div > span {
   cursor: pointer;
 }
 
@@ -88,18 +90,7 @@ body {
   perspective: 1100px;
 }
 
-.movie_list_container .movie_cards > div {
-  transform-style: preserve-3d;
-}
-
-.movie_list_container .movie_cards > div .front {
-  background: tomato;
-}
-
-.movie_list_container .movie_cards > div .back {
-  background-color: black;
-}
-
+/* card */
 .movie_list_container .movie_cards div {
   background-color: #fff;
   width: 200px;
@@ -107,10 +98,6 @@ body {
   margin: 20px 15px;
   padding: 20px;
 }
-
-/* .movie_list_container .movie_cards:hover div {
-  transform: rotateY(180deg);
-} */
 
 .movie_list_container .movie_cards div:hover {
   transition: 0.3s;

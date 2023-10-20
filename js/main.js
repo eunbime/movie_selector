@@ -50,9 +50,9 @@ fetch(
         const cardRating = document.createElement("span");
         const posterPath = `https://image.tmdb.org/t/p/w500/${movie.poster_path}`;
         cardImg.src = posterPath;
-        card.appendChild(cardImg);
         cardTitle.innerText = movie.title;
         cardRating.innerText = movie.vote_average;
+        card.appendChild(cardImg);
         card.appendChild(cardTitle);
         card.appendChild(cardRating);
         cardList.appendChild(card);
@@ -70,19 +70,31 @@ fetch(
     function onSearchButtonClick(e) {
       let cardList = document.querySelector(".movie_cards");
       cardList.innerHTML = ""; // 초기화
+
       filteredMovies = movies.filter((movie) => {
         if (e) e.preventDefault();
+        // toUpperCase()를 사용하여 대소문자 상관없이 비교
+        let val = search.value.toUpperCase(); // 검색값
+        let title = movie.title.toUpperCase(); // 영화 제목
 
         // input 값이 들어올 때
-        if (search.value) {
-          return movie.title.includes(search.value); // 키워드를 포함한 movie.title 반환
+        if (val) {
+          return title.includes(val); // 키워드를 포함한 movie.title 반환
         } else {
           return movie; // input 값이 들어오지 않을 때 (초기 상태) 전체 movie 데이터 반환
         }
       });
+      console.log(search.value);
       search.value = "";
       showMovies(filteredMovies);
     }
+
+    // 엔터 시 검색 실행
+    search.addEventListener("keyup", function (e) {
+      if (e.code === "Enter") {
+        onSearchButtonClick();
+      }
+    });
 
     searchBtn.addEventListener("click", onSearchButtonClick);
     showMovies(movies);
