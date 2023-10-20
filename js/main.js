@@ -44,25 +44,51 @@ fetch(
       let cardList = document.querySelector(".movie_cards");
 
       list.forEach((movie) => {
-        const card = document.createElement("div");
-        const cardImg = document.createElement("img");
-        const cardTitle = document.createElement("h3");
-        const cardRating = document.createElement("span");
+        // const card = document.createElement("div");
+        // const cardImg = document.createElement("img");
+        // const cardTitle = document.createElement("h3");
+        // const cardRating = document.createElement("span");
+        // const cardInfo = document.createElement("p");
+        // const posterPath = `https://image.tmdb.org/t/p/w500/${movie.poster_path}`;
+        // cardImg.src = posterPath;
+        // cardTitle.innerText = movie.title;
+        // cardRating.innerText = movie.vote_average;
+        // cardInfo.innerText = movie.card.appendChild(cardImg);
+        // card.appendChild(cardTitle);
+        // card.appendChild(cardRating);
+        // cardList.appendChild(card);
+
         const posterPath = `https://image.tmdb.org/t/p/w500/${movie.poster_path}`;
-        cardImg.src = posterPath;
-        cardTitle.innerText = movie.title;
-        cardRating.innerText = movie.vote_average;
-        card.appendChild(cardImg);
-        card.appendChild(cardTitle);
-        card.appendChild(cardRating);
-        cardList.appendChild(card);
+        const cardTitle = movie.title;
+        const cardRating = movie.vote_average;
+        const cardInfo = movie.overview;
+        const cardId = movie.id;
+        console.log(cardInfo);
 
-        function idAlert(e) {
-          e.preventDefault();
-          alert(`id=${movie.id}`);
-        }
+        let temp_html = `
+        <div data-id="${cardId}"class="card">
+        <img src="${posterPath}" alt="">
+        <h3>${cardTitle}</h3>
+        <span>${cardRating}</span>
+        <p class="info">${cardInfo}</p>
+        </div>
+        `;
 
-        card.addEventListener("click", idAlert);
+        cardList.insertAdjacentHTML("beforeend", temp_html);
+        console.log(cardList);
+        const cards = document.querySelectorAll(".card");
+
+        cards.forEach((card) => {
+          cards.addEventListener("click", function () {
+            alert(`id=${cardId}`);
+          });
+        });
+
+        // function idAlert(e) {
+        //   e.preventDefault();
+        //   console.log(card);
+        //   alert(`id=${movie.id}`);
+        // }
       });
     };
 
@@ -84,7 +110,6 @@ fetch(
           return movie; // input 값이 들어오지 않을 때 (초기 상태) 전체 movie 데이터 반환
         }
       });
-      console.log(search.value);
       search.value = "";
       showMovies(filteredMovies);
     }

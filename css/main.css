@@ -94,7 +94,7 @@ body {
 .movie_list_container .movie_cards div {
   background-color: #fff;
   width: 200px;
-  height: 330px;
+  height: 350px;
   margin: 20px 15px;
   padding: 20px;
 }
@@ -104,9 +104,18 @@ body {
   z-index: 1;
   box-shadow: 0 0 4px 3px #555;
   transform: scale(1.2);
+  height: 600px;
+}
+
+.movie_list_container .movie_cards div .info {
+  display: none;
+}
+.movie_list_container .movie_cards div:hover .info {
+  display: block;
 }
 
 .movie_list_container .movie_cards div img {
+  margin-bottom: 5px;
   height: 300px;
 }
 
